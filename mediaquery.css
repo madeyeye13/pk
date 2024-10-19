@@ -1,0 +1,620 @@
+:root {
+    --gold-color:#bd8e36;
+    --yellow:#fac11a;
+    --purple: #e937ab;
+    --lightgold-color:#fdf9f2;
+    --red-color: #e42826;
+    --lpurple:#fdc0ff;
+    --white-color: white;
+    --fade-out:rgb(85, 85, 85);
+    --dark-main-color:#160e0d;
+    --font-1:"Cormorant", serif;
+    --font-2: "Poppins", sans-serif;
+    --font-3: "Josefin Sans", sans-serif;
+    
+}
+
+
+
+/* Media Query For Screens 728px */
+
+@media (min-width: 728px) {
+
+    .logo {
+        padding-left: 30px;
+
+    }
+
+    .logo h4 {
+        left: 100px;
+    }
+
+    .menu-icon {
+        padding-right: 30px;
+    }
+    
+    .nav-link {
+        
+        font-size: 18px;
+        padding-left: 40px;
+        font-size: 1.5em;
+        
+    }
+
+
+    /*-----------------WELCOME---------*/
+
+  #wec {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+
+  .wec0 {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+
+  .wec1 h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 500;
+    color: #160e0d;
+  }
+
+
+  .wec1 p {
+    line-height: 1.8em;
+    font-size: 1.3em;
+    font-weight: 300;
+    font-family: var(--font-2);
+    margin-bottom: 30px;
+  }
+
+
+  .wec-image {
+    width: 100%;
+    height: 50vh;
+  }
+
+
+  /*---------------------INFINITE---------------*/
+
+  #infy {
+    margin-bottom: 80px;
+  }
+
+
+  .infy2 {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+
+  /*--------------------SATISFACTION AND RECORD----------------*/
+
+
+  #satis {
+    background-image: url(image/6.jpg);
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    overflow: hidden;
+    height: 80vh;
+    background-color: #080808c5;
+    background-blend-mode: overlay;
+    opacity: 1;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.expt {
+    padding-left: 70px;
+    padding-right: 70px;
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 40px;
+}
+
+
+.c-client {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    
+
+}
+
+
+.expt h1 {
+    font-family: var(--font-2);
+    color: var(--white-color);
+    font-size: 2.5em;
+    font-weight: 500;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+/* ======STYLE FOR SERVICES RENDERED======= */
+    
+
+.svc1 {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    text-align: left;
+    margin-top: 80px;
+    
+}
+
+.svc0 {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.svc2 {
+    width: 100%;
+}
+
+
+.sc {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+}
+
+
+ /*===========================TESTIMONIAL STYLING====================*/
+
+
+ #testi {
+    background-image: url(image/5.jpg);
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    overflow: hidden;
+    height: 70vh;
+    background-color: #080808e8;
+    background-blend-mode: overlay;
+    opacity: 1;
+    margin-top: 0px;
+    /* display: flex;
+    flex-direction: column; */
+    
+}
+
+.testimonial-section h2 {
+    margin-bottom: 80px;
+    padding-left: 70px;
+    padding-right: 70px;
+    font-weight: 500;
+    font-size: 2em;
+}
+
+.testimonial {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.testimonial-container {
+    display: flex;
+}
+
+.testimonial p {
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.8em;
+    margin-bottom: 50px;
+    font-size: 1.4em;
+}
+
+.testimonial-dots {
+    display: block; 
+    /* margin-top: 40px; */
+}
+
+.testimonial h5 {
+    font-family: var(--font-2);
+    font-weight: 400;
+    font-size: 1.2em;
+    margin-bottom: 50px;
+}
+
+
+.sow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.work-card {
+    padding-left: 0px;
+    padding-right: 0px;
+    perspective: 1000px; /* Creates 3D space for flip effect */
+}
+
+
+/*===============FOOTER===========*/
+
+.footer-cta {
+    border-bottom: 1px solid #373636;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.footer-content {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.mb-50 p{
+    padding-right: 40px;
+
+}
+
+.footer-text p {
+    margin-bottom: 14px;
+    font-size: 1em;
+      color: var(--white-color);
+      font-family: var(--font-2);
+      font-weight: 400;
+    line-height: 28px;
+    
+}
+
+.copyright-area{
+    background: var(--dark-main-color);
+    padding: 25px 0;
+    padding-left: 50px;
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* Media query for screens 1024px and wider */
+@media (min-width: 1024px) {
+    .menu-icon {
+        display: none;
+    }
+
+    .nav-menu {
+        display: flex !important;
+        position: relative;
+        background: transparent;
+        flex-direction: row;
+        justify-content: flex-end;
+        top: 10px;
+        padding-right: 50px;
+    }
+
+    .nav-link {
+        color: white;
+        font-size: 18px;
+        padding: 0 15px;
+        font-family: var(--font-2);
+    }
+
+    .nav-link:hover {
+        color: #ffcbfa;
+    }
+    .logo {
+        padding-left: 60px;
+    }
+
+    .logo h4 {
+        left: 120px;
+    }
+
+    
+
+
+
+
+    /*--------------------HERO SECTION------------*/
+
+
+    #hero {
+        position: relative;
+        height: 150vh;
+        overflow: hidden;
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        transition: opacity 0.7s ease-in-out;
+    }
+
+
+
+    /*---------------WELCOME-----------*/
+
+
+    #wec{
+        margin-top: 15%;
+      }
+
+      #wec p {
+        font-size: 1em;
+      }
+
+      .wec0 {
+        display: flex;
+        flex-direction: row;
+        padding-left: 90px;
+        padding-right: 90px;
+        text-align: left;
+        gap: 30px;
+      }
+
+
+      .wec1 {
+        width: 100%;
+      }
+
+
+
+
+
+    /*==================infinte scrolling===========*/
+
+    #infy {
+        display: none;
+    }
+
+    #infinite { 
+        display: block;
+        margin-top: 150px;
+        margin-bottom: 80px;
+    }
+
+    .trust {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 50px;
+        
+    }
+
+    .trust p {
+        margin-top: 10px;
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+
+
+    /*-----------------SATISFACTION---------------*/
+
+
+    .expt {
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 80px;
+    }
+
+    .expt h1 {
+        font-family: var(--font-2);
+        color: var(--white-color);
+        font-size: 3em;
+        font-weight: 500;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    
+
+
+    .c-client {
+        display: flex;
+        flex-direction: row;
+        gap: 80px;
+        
+
+    }
+
+    .client-content h3 {
+        margin-bottom: 10px;
+        color: var(--white-color);
+        font-size: 4.5em;
+        font-weight: 400;
+        font-family: var(--font-3);
+    }
+    
+    .client-content p {
+        color: var(--white-color);
+        margin-bottom: 20px;
+        font-family: var(--font-2);
+    }
+
+
+     /* ======STYLE FOR SERVICES RENDERED======= */
+    
+
+     .svc1 {
+        display: flex;
+        flex-direction: row;
+        gap: 80px;
+        text-align: left;
+        padding-left: 65px;
+        padding-right: 65px;
+        margin-top: 80px;
+        
+    }
+
+    .svc2 {
+        width: 100%;
+    }
+
+    .sc {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding-left: 65px;
+        padding-right: 65px;
+    }
+
+
+    /*---------------TESTIMONIAL------------*/
+
+
+    #testi {
+        background-image: url(image/5.jpg);
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        object-fit: cover;
+        overflow: hidden;
+        height: 80vh;
+        background-color: #080808e8;
+        background-blend-mode: overlay;
+        opacity: 1;
+        margin-top: 0px;
+        /* display: flex;
+        flex-direction: column; */
+        
+    }
+
+
+    .testimonial-section {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        color: var(--white-color);
+        text-align: center;
+        margin-top: 100px;
+        
+    }
+
+
+
+
+    /*============SEE OUR WORK==========*/
+
+    .sow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        
+        
+        min-width: 110%;
+        overflow: hidden;
+        
+    }
+
+
+    .see-our-work {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px; 
+        padding: 70px;
+        overflow: hidden;
+        
+    }
+
+
+    .work-card-inner {
+        position: relative;
+        width: 300px; 
+        height: 400px; 
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease-in-out;
+    }
+
+
+
+    .work-card {
+        
+        perspective: 1000px; /* Creates 3D space for flip effect */
+    }
+
+
+
+
+
+
+
+    /*=========FOOTER========*/
+
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .footer-cta {
+        margin-top: 30px;
+    }
+
+
+    .footer-content {
+        position: relative;
+        z-index: 2;
+        padding-left: 70px;
+        padding-right: 70px;
+        margin-top: 100px;
+    }
+
+
+    .footer-text p {
+        margin-bottom: 14px;
+        font-size: 0.8em;
+          color: var(--white-color);
+          font-family: var(--font-2);
+          font-weight: 400;
+        line-height: 28px;
+        
+    }
+
+    .mb-50{
+        position: relative;
+        bottom: 30px;
+        width: 40%;
+    }
+
+
+
+}
+
