@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const clientCount = document.getElementById('client-count');
     const satisfactionCount = document.getElementById('satisfaction-count');
     const satisfy = document.getElementById('satisfaction-coun');
-    const clientTarget = 2;
-    const satisfactionTarget = 20;
+    const clientTarget = 7;
+    const satisfactionTarget = 100;
     const satisfyTarget = 100;
     let hasAnimated = false;
 
@@ -163,6 +163,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     observer.observe(document.getElementById('satis'));
 });
+
+
+
+/////SERVICE RENDERED
+
+$(document).ready(function () {
+    var owl = $(".owl-carousel").owlCarousel({
+        items: 1, 
+        loop: true,
+        dots: false, 
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        margin: 10, 
+        responsive: {
+            728: {
+                items: 2, 
+                margin: 18 
+            },
+            1024: {
+                items: 3, 
+                margin: 10 
+            }
+        }
+    });
+
+    // Custom dots click event to trigger the carousel change
+    $('.custom-dot').click(function () {
+        var index = $(this).data('index'); // Get me the index of the clicked dot
+        owl.trigger('to.owl.carousel', [index, 300]); // I want you to move to the corresponding dots
+    });
+
+    // Sync custom dots with the carousel's current state
+    owl.on('changed.owl.carousel', function (event) {
+        var currentIndex = event.item.index - event.relatedTarget._clones.length / 2; 
+        currentIndex = currentIndex % event.item.count; 
+        $('.custom-dot').removeClass('active'); 
+        $('.custom-dot').eq(currentIndex).addClass('active');
+    });
+});
+
 
 
 
