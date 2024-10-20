@@ -52,68 +52,32 @@
 
 /* ======= New Modern Preloader ======= */
 .preloader-bg,
+
+
 #preloader {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Light gradient for subtle backdrop */
-    z-index: 999999;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center loader */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #ffffff; /* Clean white background */
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loader {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    border: 3px solid transparent; /* Hollow center */
-    border-top: 3px solid #3498db; /* Blue top for spin effect */
-    border-right: 3px solid #e74c3c; /* Red right for dual color effect */
-    border-radius: 50%;
-    animation: rotate 1.2s linear infinite; /* Smooth spinning */
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 215, 0, 0.3); /* Lighter shade of gold for the ring */
+  border-top: 4px solid var(--gold-color); /* Solid gold for the rotating part */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-/* Pulsing effect around loader */
-.loader::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    width: 120px;
-    height: 120px;
-    border: 2px solid rgba(52, 152, 219, 0.5); /* Pulsing outer ring */
-    border-radius: 50%;
-    opacity: 0;
-    animation: pulse 1.5s ease-in-out infinite;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
-
-/* Rotation Animation */
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg); /* Full clockwise rotation */
-    }
-}
-
-/* Pulsing Animation */
-@keyframes pulse {
-    0% {
-        opacity: 0;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.4); /* Fades out while growing */
-    }
-}
-
 
 
 
@@ -142,7 +106,7 @@ header {
 }
 
 .logo img {
-    height: 80px;
+    height: 50px;
     position: relative;
     right: 30px;
 }
@@ -157,8 +121,8 @@ header {
 
 .logo h4 {
   position: absolute;
-  left: 80px;
-  top: 25px;
+  left: 50px;
+  top: 10px;
   font-size: 1.5em;
   color: var(--white-color);
 }
@@ -417,7 +381,7 @@ opacity: 1;
     line-height: 1.8em;
     font-size: 0.9em;
     font-weight: 300;
-    font-family: var(--font-2);
+    font-family: var(--font-1);
     margin-bottom: 30px;
   }
   
