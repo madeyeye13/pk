@@ -166,6 +166,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+////CONTROL FOR CHANGING IMAGE LEFT AND RIGHT
+
+const photoContainer = document.querySelector('.photo2');
+const rightArrow = document.getElementById('right-arrow');
+const leftArrow = document.getElementById('left-arrow');
+
+const imageWidth = photoContainer.querySelector('img').clientWidth + 10;
+
+rightArrow.addEventListener('click', () => {
+    photoContainer.scrollBy({
+        left: imageWidth,
+        behavior: 'smooth'
+    });
+});
+
+leftArrow.addEventListener('click', () => {
+    photoContainer.scrollBy({
+        left: -imageWidth,
+        behavior: 'smooth'
+    });
+});
+
+
+
 /////SERVICE RENDERED
 
 $(document).ready(function () {
