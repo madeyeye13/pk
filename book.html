@@ -121,7 +121,7 @@
    
    <section class="contact-section">
             <div class="contak">
-                <h2>We’d Love to Hear From You</h2>
+                <h2>We'd Love to Hear From You</h2>
                 <p>Whether you're planning a wedding, corporate event, or something entirely unique, we're here to help make your vision a reality. Get in touch with us today and let's start planning your unforgettable event!</p>
 
             </div>
@@ -160,7 +160,7 @@
             
                             <ul>
             
-                                <li>Dummec Plaza Area 1, Abuja, Nigeria.</li>
+                                <li>No 2 Cross River Street Area 3 Abuja</li>
                                 
                             </ul>
             
@@ -204,9 +204,7 @@
                         </div>
                         <div class="form-group">
                             <label for="year">Year:</label>
-                            <select id="year">
-                                <option value="2024">2024</option>
-                            </select>
+                            <select id="year"></select>
                         </div>
                         <div id="calendar" class="calendar"></div>
                         <div id="timeSlots" class="time-slots" style="display: none;"></div>
@@ -605,19 +603,6 @@
 
 
 
-
-
-/* @media (max-width: 480px) {
-    .calendar button,
-    .calendar .day-name {
-        font-size: 12px;
-        padding: 6px 2px;
-    }
-    
-    .time-slots {
-        grid-template-columns: repeat(2, 1fr);
-    }
-} */
         /*---------------MEDIA QUERY-----------*/
 
 
@@ -693,10 +678,6 @@
 
 
 
-
-
-
-          
 
         }
 
@@ -775,17 +756,7 @@
        .form-container {
         width: 100%;
        }
-
-
-
-
-
-            
         }
-
-
-
-
 
    </style>
 
@@ -815,7 +786,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="cta-text">
                                 <h4>Find us</h4>
-                                <span>Dummec Plaza Area 1, Abuja, Nigeria</span>
+                                <span>No 2 Cross River Street Area 3 Abuja</span>
                             </div>
                         </div>
                     </div>
@@ -849,12 +820,6 @@
                             <div class="footer-text">
                                 <p>PK EVENTS is an event planning company located in the heart of Abuja, Our goal is to create a lasting and memorable experience for all events.</p>
                             </div>
-                            <!-- <div class="footer-social-icon">
-                                <span>Follow us</span>
-                                <a href="https://web.facebook.com/eventzplug/about/?paipv=0&eav=AfYDmyXG3iDHaQCHQPQgJGpD9OFKwocmtVaE1_wZzXCqQkbcbUXfXtDyyXnaFEkW-II&_rdc=1&_rdr"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                <a href="https://www.instagram.com/pkevents_/"><i class="fa-brands fa-instagram twitter-bg"></i></a>
-                                
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
@@ -972,17 +937,30 @@ document.getElementById('subscribeForm').addEventListener('submit', function(eve
         const consultationDateInput = document.getElementById('consultationDate');
         const consultationTimeInput = document.getElementById('consultationTime');
 
-        // Populate month select with remaining months of 2024
-        const months = ['October', 'November', 'December'];
+        // Populate month select with all 12 months
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                        'July', 'August', 'September', 'October', 'November', 'December'];
         months.forEach((month, index) => {
             const option = document.createElement('option');
-            option.value = index + 9; // October is month 9
+            option.value = index; // January is month 0
             option.textContent = month;
-            if (index + 9 === currentDate.getMonth()) {
+            if (index === currentDate.getMonth()) {
                 option.selected = true;
             }
             monthSelect.appendChild(option);
         });
+
+        // Populate year select dynamically (current year + next 10 years)
+        const currentYear = currentDate.getFullYear();
+        for (let year = currentYear; year <= currentYear + 10; year++) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            if (year === currentYear) {
+                option.selected = true;
+            }
+            yearSelect.appendChild(option);
+        }
 
         // Time slots in 12-hour format
         const timeSlots = ['09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'];
