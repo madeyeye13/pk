@@ -1191,3 +1191,107 @@ ul {
 .nav-link {
   white-space: nowrap;
 }
+
+/*=============== In-text links ===============*/
+.in-link {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--gold-color);
+  text-underline-offset: 3px;
+}
+.in-link:hover {
+  color: var(--gold-color);
+}
+
+/*=============== More weddings (gallery pages) ===============*/
+.more-weddings {
+  background: var(--lightgold-color);
+  padding: 70px 25px;
+}
+.mw-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.more-weddings h2 , .more-weddings .h2-like {
+  font-family: var(--font-2);
+  font-weight: 600;
+  font-size: 1.6em;
+  color: var(--dark-main-color);
+  margin-bottom: 30px;
+}
+.more-weddings h2 span , .more-weddings .h2-like span {
+  font-family: custom, cursive;
+  color: var(--gold-color);
+  font-weight: 400;
+}
+.mw-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.mw-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  text-decoration: none;
+}
+.mw-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.mw-card:hover img {
+  transform: scale(1.05);
+}
+.mw-card span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 40px 12px 14px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  color: #fff;
+  font-family: var(--font-2);
+  font-size: 14px;
+}
+.mw-cta {
+  margin-top: 40px;
+}
+.mw-cta p {
+  font-family: var(--font-2);
+  color: var(--dark-main-color);
+  margin-bottom: 18px;
+}
+.mw-btn {
+  display: inline-block;
+  margin: 6px;
+  padding: 14px 26px;
+  font-family: var(--font-2);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--dark-main-color);
+  border: 1px solid var(--dark-main-color);
+  color: #fff;
+}
+.mw-btn.ghost {
+  background: transparent;
+  color: var(--dark-main-color);
+}
+.mw-btn:hover {
+  background: var(--gold-color);
+  border-color: var(--gold-color);
+  color: #fff;
+}
+@media (min-width: 728px) {
+  .mw-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

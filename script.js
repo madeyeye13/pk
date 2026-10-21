@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
         entries.forEach(entry => {
             if (entry.isIntersecting && !hasAnimated) {
                 hasAnimated = true;
-                animateCount(clientCount, 7, '+');
+                animateCount(clientCount, 9, '+');
                 animateCount(satisfactionCount, 100, '+');
                 animateCount(satisfy, 100, '%');
             }
