@@ -1,150 +1,114 @@
+/* =========================================================
+   PK EVENTS — shared site script
+   Every feature checks that its section exists first, so the
+   same file is safe on every page.
+   ========================================================= */
+
 // Preloader
 $("#preloader").fadeOut(700);
 $(".preloader-bg").delay(700).fadeOut(700);
-var wind = $(window);
 
 
-///////////NAV BAR
-
+/////////// NAV BAR
 $(document).ready(function () {
     const wind = $(window);
-  
+
     // Navbar dropdown toggle for mobile
     $('.menu-icon').on('click', function () {
         $('.nav-menu').toggleClass('open');
     });
-  
+
     // Navbar scrolling background
     wind.on("scroll", function () {
-        var bodyScroll = wind.scrollTop();
-  
-        if (bodyScroll > 100) {
+        if (wind.scrollTop() > 100) {
             $(".navbar").css("background", "black");
         } else {
             $(".navbar").css("background", "transparent");
         }
     });
-  
-    // Highlight the current active page
-    const path = window.location.pathname;
-    const page = path.split("/").pop();
-  
-    $('.nav-link').each(function () {
-        const href = $(this).attr('href');
-  
-        if (href === page || (page === '' && href === 'index.html')) {
-            $(this).addClass('active');
-        } else {
-            $(this).removeClass('active');
-        }
+
+    // Highlight the current page (works with clean URLs like /about and with /about.html)
+    function pageKey(href) {
+        let p = (href || '').split('#')[0].split('?')[0].split('/').pop();
+        p = p.replace(/\.html$/, '');
+        return (p === '' || p === 'index') ? 'home' : p;
+    }
+    // (pages not in the menu, like the wedding galleries, keep the highlight set in their HTML)
+    const current = pageKey(window.location.pathname);
+    const $links = $('.nav-link').filter(function () {
+        const href = $(this).attr('href') || '';
+        return !href.includes('#') && pageKey(href) === current;
     });
-  });
-  
+    if ($links.length) {
+        $('.nav-link').removeClass('active');
+        $links.addClass('active');
+    }
+});
 
 
-///////////////HERO SECTION
-
-
-document.addEventListener('DOMContentLoaded', function() {
+/////////////// HERO SLIDER (home page)
+document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide');
+    if (slides.length < 2) return;
     let currentSlide = 0;
-  
+
+    function animateContent(slide) {
+        const content = slide.querySelector('.content');
+        if (!content) return;
+        content.style.opacity = '1';
+        const heading = content.querySelector('.hero-heading');
+        const p = content.querySelector('.hero-paragraph');
+        const button = content.querySelector('.cta-button');
+        [heading, p, button].forEach(el => el && el.classList.remove('fade-up', 'fade-in', 'zoom-in'));
+        if (heading) heading.classList.add('fade-up');
+        if (p) setTimeout(() => p.classList.add('fade-in'), 200);
+        if (button) setTimeout(() => button.classList.add('zoom-in'), 400);
+    }
+
     function showSlide(index) {
         const previousSlide = slides[currentSlide];
         const nextSlide = slides[index];
-  
-        // Prepare the next slide
+
         nextSlide.style.opacity = '';
         nextSlide.classList.add('active', 'sliding-down');
         previousSlide.classList.add('previous');
-  
-        // Start the transition
+
         setTimeout(() => {
             nextSlide.style.opacity = '1';
             previousSlide.style.opacity = '0';
         }, 50);
-  
-        // Clean up after transition
+
         setTimeout(() => {
             previousSlide.classList.remove('active', 'previous');
             nextSlide.classList.remove('sliding-down');
-  
-            // Trigger content animations after slide transition
-            const content = nextSlide.querySelector('.content');
-            content.style.opacity = '1'; // Ensure content opacity is set to 1
-            
-            // Resetting the content visibility for animations
-            const h1 = content.querySelector('h1');
-            const p = content.querySelector('p');
-            const button = content.querySelector('.cta-button');
-  
-            // Reset classes to allow for re-animation
-            h1.classList.remove('fade-up');
-            p.classList.remove('fade-in');
-            button.classList.remove('zoom-in');
-  
-            // Trigger fade-in effect
-            h1.classList.add('fade-up');
-            setTimeout(() => p.classList.add('fade-in'), 200);
-            setTimeout(() => button.classList.add('zoom-in'), 400);
+            animateContent(nextSlide);
         }, 750);
-  
+
         currentSlide = index;
     }
-  
-    function nextSlide() {
-        const nextIndex = (currentSlide + 1) % slides.length;
-        showSlide(nextIndex);
-    }
-  
-    setInterval(nextSlide, 7000); // Change slide every 7 seconds
-  
-    // Reset animations when slide changes
-    slides.forEach(slide => {
-        slide.addEventListener('transitionend', function(e) {
-            if (e.propertyName === 'opacity' && !this.classList.contains('active')) {
-                const content = this.querySelector('.content');
-                const h1 = content.querySelector('h1');
-                const p = content.querySelector('p');
-                const button = content.querySelector('.cta-button');
-  
-                // Reset classes to allow for re-animation
-                h1.classList.remove('fade-up');
-                p.classList.remove('fade-in');
-                button.classList.remove('zoom-in');
-            }
-        });
-    });
-  });
+
+    setInterval(() => showSlide((currentSlide + 1) % slides.length), 7000);
+});
 
 
-
-  // JAVASCRIPT FOR NUMBER INCREASE
-
-
-document.addEventListener('DOMContentLoaded', function() {
+/////////////// NUMBER COUNTERS (home page)
+document.addEventListener('DOMContentLoaded', function () {
+    const section = document.getElementById('satis');
     const clientCount = document.getElementById('client-count');
     const satisfactionCount = document.getElementById('satisfaction-count');
     const satisfy = document.getElementById('satisfaction-coun');
-    const clientTarget = 7;
-    const satisfactionTarget = 100;
-    const satisfyTarget = 100;
+    if (!section || !clientCount || !satisfactionCount || !satisfy) return;
+
     let hasAnimated = false;
 
-    function animateCount(element, target, suffix = '') {
+    function animateCount(element, target, suffix) {
         let count = 0;
-        const duration = 2000;
-        const increment = target / (duration / 60);
-
+        const increment = target / (2000 / 60);
         function updateCount() {
-            count += increment;
-            if (count > target) count = target;
+            count = Math.min(count + increment, target);
             element.textContent = Math.floor(count) + suffix;
-            if (count < target) {
-                requestAnimationFrame(updateCount);
-            }
+            if (count < target) requestAnimationFrame(updateCount);
         }
-
         requestAnimationFrame(updateCount);
     }
 
@@ -152,202 +116,154 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting && !hasAnimated) {
                 hasAnimated = true;
-                animateCount(clientCount, clientTarget, '+');
-                animateCount(satisfactionCount, satisfactionTarget, '+');
-                animateCount(satisfy, satisfyTarget, '%');
+                animateCount(clientCount, 7, '+');
+                animateCount(satisfactionCount, 100, '+');
+                animateCount(satisfy, 100, '%');
             }
         });
-    }, {
-        threshold: 0.1 // Trigger when at least 10% of the section is in view
-    });
+    }, { threshold: 0.1 });
 
-    observer.observe(document.getElementById('satis'));
+    observer.observe(section);
 });
 
 
+//////////////// PHOTO GALLERY ARROWS (home page)
+(function () {
+    const photoContainer = document.querySelector('.photo2');
+    const rightArrow = document.getElementById('right-arrow');
+    const leftArrow = document.getElementById('left-arrow');
+    if (!photoContainer || !rightArrow || !leftArrow) return;
 
-////CONTROL FOR CHANGING IMAGE LEFT AND RIGHT
-
-const photoContainer = document.querySelector('.photo2');
-const rightArrow = document.getElementById('right-arrow');
-const leftArrow = document.getElementById('left-arrow');
-
-const imageWidth = photoContainer.querySelector('img').clientWidth + 10;
-
-rightArrow.addEventListener('click', () => {
-    photoContainer.scrollBy({
-        left: imageWidth,
-        behavior: 'smooth'
-    });
-});
-
-leftArrow.addEventListener('click', () => {
-    photoContainer.scrollBy({
-        left: -imageWidth,
-        behavior: 'smooth'
-    });
-});
+    function step() {
+        const img = photoContainer.querySelector('img');
+        return (img ? img.clientWidth : 300) + 10;
+    }
+    rightArrow.addEventListener('click', () => photoContainer.scrollBy({ left: step(), behavior: 'smooth' }));
+    leftArrow.addEventListener('click', () => photoContainer.scrollBy({ left: -step(), behavior: 'smooth' }));
+})();
 
 
-
-/////SERVICE RENDERED
-
+///////////////// SERVICES CAROUSEL (home page)
 $(document).ready(function () {
-    var owl = $(".owl-carousel").owlCarousel({
-        items: 1, 
+    const $carousel = $(".owl-carousel");
+    if (!$carousel.length || !$.fn.owlCarousel) return;
+
+    const owl = $carousel.owlCarousel({
+        items: 1,
         loop: true,
-        dots: false, 
+        dots: false,
         nav: false,
         autoplay: true,
         autoplayTimeout: 5000,
         autoplayHoverPause: true,
-        margin: 10, 
+        margin: 10,
         responsive: {
-            728: {
-                items: 2, 
-                margin: 18 
-            },
-            1024: {
-                items: 3, 
-                margin: 10 
-            }
+            728: { items: 2, margin: 18 },
+            1024: { items: 3, margin: 10 }
         }
     });
 
-    // Custom dots click event to trigger the carousel change
     $('.custom-dot').click(function () {
-        var index = $(this).data('index'); // Get me the index of the clicked dot
-        owl.trigger('to.owl.carousel', [index, 300]); // I want you to move to the corresponding dots
+        owl.trigger('to.owl.carousel', [$(this).data('index'), 300]);
     });
 
-    // Sync custom dots with the carousel's current state
     owl.on('changed.owl.carousel', function (event) {
-        var currentIndex = event.item.index - event.relatedTarget._clones.length / 2; 
-        currentIndex = currentIndex % event.item.count; 
-        $('.custom-dot').removeClass('active'); 
-        $('.custom-dot').eq(currentIndex).addClass('active');
+        let currentIndex = event.item.index - event.relatedTarget._clones.length / 2;
+        currentIndex = ((currentIndex % event.item.count) + event.item.count) % event.item.count;
+        $('.custom-dot').removeClass('active').eq(currentIndex).addClass('active');
     });
 });
 
 
+/////////////////// TESTIMONIALS (home page)
+(function () {
+    const section = document.querySelector('.testimonial-section');
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    if (!section || !testimonials.length) return;
 
+    let currentTestimonial = 0;
+    let startX = 0;
+    let isSwiping = false;
+    let autoSlideInterval;
 
-///=====================TESTIMONIAL
-
-let currentTestimonial = 0;
-const testimonials = document.querySelectorAll('.testimonial');
-const dots = document.querySelectorAll('.dot');
-let startX = 0;
-let isSwiping = false;
-let autoSlideInterval;
-
-// Function to show the current testimonial
-function showTestimonial(index) {
-    testimonials.forEach((testimonial, i) => {
-        testimonial.style.transform = `translateX(-${index * 100}%)`;
-        dots[i].classList.toggle('active', i === index);
-    });
-}
-
-// Function to start the auto-slide interval
-function startAutoSlide() {
-    autoSlideInterval = setInterval(() => {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-        showTestimonial(currentTestimonial);
-    }, 7000);
-}
-
-// Function to stop the auto-slide interval
-function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-}
-
-// Dots navigation
-dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-        currentTestimonial = i;
-        showTestimonial(currentTestimonial);
-    });
-});
-
-// Swipe detection
-document.querySelector('.testimonial-section').addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isSwiping = true;
-});
-
-document.querySelector('.testimonial-section').addEventListener('touchmove', (e) => {
-    if (!isSwiping) return;
-    const moveX = e.touches[0].clientX;
-    const diff = startX - moveX;
-
-    if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-            // Swipe left
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-        } else {
-            // Swipe right
-            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-        }
-        showTestimonial(currentTestimonial);
-        isSwiping = false; 
+    function showTestimonial(index) {
+        testimonials.forEach((testimonial) => {
+            testimonial.style.transform = `translateX(-${index * 100}%)`;
+        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
     }
-});
 
-document.querySelector('.testimonial-section').addEventListener('touchend', () => {
-    isSwiping = false;
-});
+    function startAutoSlide() {
+        stopAutoSlide();
+        autoSlideInterval = setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 7000);
+    }
+    function stopAutoSlide() { clearInterval(autoSlideInterval); }
 
-// Pause auto-slide on hover
-const testimonialSection = document.querySelector('.testimonial-section');
-testimonialSection.addEventListener('mouseenter', stopAutoSlide);
-testimonialSection.addEventListener('mouseleave', startAutoSlide);
-
-// Initial display
-showTestimonial(currentTestimonial);
-startAutoSlide();
-
-
-
-///FORM SUBMISSION FOR FOOTER
-
-
-document.getElementById('subscribeForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    const email = document.getElementById('email').value;
-    const formData = new FormData();
-    formData.append('email', email);
-
-    // Send form data to Formspree using fetch
-    fetch('https://formspree.io/f/mgvevvkz', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            const successMessage = document.getElementById('successMessage');
-            successMessage.style.display = 'block';
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
-
-            // Reset the form
-            document.getElementById('subscribeForm').reset();
-        } else {
-            alert('Oops! There was a problem submitting your form.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error submitting the form.');
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            currentTestimonial = i;
+            showTestimonial(currentTestimonial);
+        });
     });
-});
+
+    section.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+    }, { passive: true });
+
+    section.addEventListener('touchmove', (e) => {
+        if (!isSwiping) return;
+        const diff = startX - e.touches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            currentTestimonial = diff > 0
+                ? (currentTestimonial + 1) % testimonials.length
+                : (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+            isSwiping = false;
+        }
+    }, { passive: true });
+
+    section.addEventListener('touchend', () => { isSwiping = false; });
+    section.addEventListener('mouseenter', stopAutoSlide);
+    section.addEventListener('mouseleave', startAutoSlide);
+
+    showTestimonial(currentTestimonial);
+    startAutoSlide();
+})();
 
 
-  
+///////////////////// FOOTER SUBSCRIBE (every page)
+(function () {
+    const form = document.getElementById('subscribeForm');
+    if (!form) return;
+    const emailInput = document.getElementById('subscribeEmail');
+    const message = document.getElementById('subscribeSuccess');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('email', emailInput.value);
+
+        fetch('https://formspree.io/f/mgvevvkz', {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Subscribe failed');
+                message.textContent = 'Thanks For Subscribing!';
+                message.style.display = 'block';
+                setTimeout(() => { message.style.display = 'none'; }, 5000);
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                message.textContent = 'Something went wrong. Please try again.';
+                message.style.display = 'block';
+            });
+    });
+})();
